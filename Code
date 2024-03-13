@@ -1,0 +1,72 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.text.DecimalFormat;
+
+public class employeeSalaries {
+    public static void main(String[]args) {
+        try {
+            BufferedReader salariesReader = new BufferedReader(new FileReader("C:/University/SWC2333/SWC2333/employeeSalaries.txt"));
+            BufferedWriter employeeDataWriter = new BufferedWriter(new FileWriter("employeeData.txt"));
+            BufferedWriter topperformingemployeeWriter = new BufferedWriter(new FileWriter("topperformingemployee.txt"));
+            BufferedWriter leastyearsofserviceWriter = new BufferedWriter(new FileWriter("leastyearsofservice.txt"));
+            DecimalFormat dF = new DecimalFormat("0.00");
+            
+            String header = "List of the employee available\n";
+                   header += "----------------------------------------------------------\n";
+                   header += " Employee Name\t\tAnnual Salary\t\tYears of service\t\tTop-Performing\t\tLeast Years of Service\n";
+                   
+             employeeDataWriter.write(header);
+             
+             String topperformingemployee;
+             String leastyearsofservice;
+             double Salary;
+             
+             String line;
+            while ((line = salariesReader.readLine()) !=null) {
+                StringTokenizer tokenizer = new StringTokenizer(line, ";");
+                
+                String employeename = tokenizer.nextToken();
+                double salary = Double.parseDouble(tokenizer.nextToken());
+                double annualsalary = salary + (salary * 0.05);
+                int yearsofservice = Integer.parseInt(tokenizer.nextToken());
+                
+            if (annualsalary >= 60000) {
+                topperformingemployee = "Yes";
+            } else{
+                topperformingemployee = "No";
+            }
+            
+            if (yearsofservice >=4) {
+                leastyearsofservice = "No";
+            }else {
+                leastyearsofservice = "Yes";
+            }
+            
+            String outputLine = ( "\n" + employeename + "\t\t" + dF.format(annualsalary) + "\t\t" + yearsofservice + "\t\t" + topperformingemployee + "\t\t" + leastyearsofservice );
+            
+            employeeDataWriter.write(outputLine);
+            
+            }
+                   
+            salariesReader.close();
+            employeeDataWriter.close();
+            
+        }catch (IOException e) {
+            System.out.println("An error occured: " + e.getMessage());
+        }catch (NumberFormatException e) {
+            System.out.println("An error occured: " + e.getMessage());
+        }
+        
+        }
+            
+        }
+        
+        
+    
+    
+
+   
